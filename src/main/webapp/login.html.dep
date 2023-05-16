@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>用户登录</title>
+  <!-- 引入 Bootstrap 样式文件 -->
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha256@master/src/sha256.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script src="./js/login.js?ver=0.1.0"></script>
+  <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/login.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f5f5f5;
+    }
+    #login-form {
+      position: absolute;
+      top: 30%;
+      left: 35%;
+      width: 30%;
+      height: auto;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    #login-form h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #login-form button {
+      margin-left: 43%;
+      margin-top: 20px;
+    }
+    #login-form .has-error input[type="text"],
+    #login-form .has-error input[type="password"] {
+      border-color: #d9534f;
+      box-shadow: none;
+    }
+    #login-form .help-block {
+      color: #d9534f;
+    }
+  </style>
+</head>
+<body>
+  <div id="login-form">
+    <h1 style="padding-bottom: 10%;">用户登录</h1>
+    <div>
+      <div class="form-group has-feedback">
+        <label for="id">用户名/邮箱：</label>
+        <input type="text" name="user-id" id="uid" required cl0ass="form-control">
+        <i class="fa-solid fa-user form-control-feedback"></i>
+        <!-- <span id="tip1" class="help-block hide">学号格式不正确</span> -->
+      </div>
+      <div class="form-group has-feedback">
+        <label for="password">密码：</label>
+        <input type="password" name="password" id="password" required class="form-control">
+        <i class="fa-solid fa-lock form-control-feedback"></i>
+        <img src="xblog/captcha.jpg" alt="captcha" id="captcha" secret>
+        <span id="tip2" class="help-block hide">应包含数字和字母，长度在6至16位之间</span>
+      </div>
+      <div>
+        <label><input type="checkbox" id="remember-me" name="remember-me">记住我</label>
+        <p style="float: right;">没有账号？<a href="./register.html">注册</a></p>
+      </div>
+      <button id="login" class="btn btn-primary">登录</button>
+    </div>
+  </div>
+
+  <!-- 引入 jQuery  -->
+  
+  
+  
+</body>
+</html>

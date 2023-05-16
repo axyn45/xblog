@@ -1,0 +1,16 @@
+.form-control-feedback{
+    /* display: inline-block; */
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 27px;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    pointer-events: none;
+}
+/* input{
+    display: inline-block;
+} */

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha256@master/src/sha256.js"></script>
+    <script src="./js/login.js"></script>
+    <title>xBlog | 登录</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="container">
+            <div class="left">
+                <div class="login">登录</div>
+                <div class="eula">登录即代表您同意我们长得离谱而且不会有人看的<a href="#eula">用户协议</a>
+                </div>
+            </div>
+            <div class="right">
+                <div class="form">
+                    <label for="uid">用户名 / Email</label>
+                    <input type="uid" id="uid">
+                    <label for="password">密码</label>
+                    <input type="password" id="password">
+
+                    <!-- <input type="submit" id="submit" value="Submit"> -->
+                    <label for="captcha">验证码</label>
+                    <input type="captcha" id="captcha">
+                    <img src="http://10.0.0.90:8080/xblog/captcha.jpg" alt="captcha">
+                    <div>
+                        <input type="checkbox" id="remember-me" name="remember-me"><label id="remember-me">记住我</label>
+                        <button id="login" role="button">登录</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
