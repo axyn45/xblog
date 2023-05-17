@@ -38,7 +38,7 @@ public class PermissionFilter implements Filter {
 		System.out.println("拦截到资源：" + uri);
 		// 某些资源无需检查
 		String[] notCheckList = { "login.do", "login.html", "register.do", "register.html", "about.html",
-				"get_captcha" };
+				"get_captcha", "dash.do","log.do","request"};
 		for (String str : notCheckList) {
 			if (uri.contains(str)) { // 直接放行
 				chain.doFilter(request, response);
@@ -49,7 +49,7 @@ public class PermissionFilter implements Filter {
 		ServletContext contextGetter = request.getServletContext();
 		String Id = (String) contextGetter.getAttribute("ID");
 		Cookie[] cookies = req.getCookies();
-		System.out.println("Cookie stat: "+cookies.length);
+		// System.out.println("Cookie stat: "+cookies.length);
 		boolean check = false;
 		PreparedStatement st = JDBC.getStatement("select * from xb_logins where cookie=?");
 		ResultSet rs = null;

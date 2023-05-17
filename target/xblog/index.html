@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha256@master/src/sha256.js"></script>
+    <script src="./js/index.js?ver=4"></script>
+    <link href="./css/index.css" rel="stylesheet">
     <title>SHOP</title>
 
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container-full">
         <ul class="nav nav-tabs">
@@ -20,57 +27,23 @@
         </ul>
     </div>
     <div id="welcome-message">
-		<h1 class="text-center" style="color: rgb(243, 161, 117);">欢迎使用WTU二手书交易品台!</h1>
-	</div>
+        <h1 class="text-center" style="color: rgb(243, 161, 117);">xBlog文章管理页面</h1>
+    </div>
     <div class="container">
         <div class="panel panel-warning">
             <div class="penel-heading">
-                <h2 align="center" style="background-color: rgb(60, 153, 212);">书籍</h2>
+                <h2 align="center" style="background-color: rgb(68, 179, 182);">文章</h2>
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div name="1001" class="thumbnail">
-                            <img src="img/hadoop.jpg" alt="hadoop">
-                            <h4>Hadoop大数据技术与应用</h4>
-                            <p>这里是此商品的描述</p>
-                            <button class="bnt btn-default" value="collect" name="collect" style="color: rgb(238, 188, 188)">
-                                <span class="glyphicon glyphicon-heart"></span>收藏</button>
-                            <button class="bnt btn-default" name="buy" style="color: rgb(233, 152, 47)">
-                                <span class="glyphicon glyphicon-collapse-down"></span>购买</button>
-                            <button class="bnt btn-default" name="discuss" style="color: rgb(85, 85, 220)">
-                                <span class="glyphicon glyphicon-pencil"></span>评论</button>
-                            </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div name="1002" class="thumbnail">
-                            <img src="img/spark.jfif" alt="spark">
-                            <h4>Spark大数据技术与应用</h4>
-                            <p>这里是此商品的描述</p>
-                            <button class="bnt btn-default" name="collect" style="color:rgb(238, 188, 188);">
-                                <span class="glyphicon glyphicon-heart"></span>收藏</button>
-                            <button class="bnt btn-default" name="buy" style="color: rgb(233, 152, 47);">
-                                <span class="glyphicon glyphicon-collapse-down"></span>购买</button>
-                            <button class="bnt btn-default" name="discuss" style="color: rgb(85, 85, 220);">
-                                <span class="glyphicon glyphicon-pencil"></span>评论</button>
-                            </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div name="1003" class="thumbnail">
-                            <img src="img/javaweb1.jfif" alt="hadoop">
-                            <h4>Java Web程序设计（慕课版）</h4>
-                            <p>这里是此商品的描述</p>
-                            <button class="bnt btn-default" value="collect" name="collect" style="color: rgb(238, 188, 188)">
-                                <span class="glyphicon glyphicon-heart"></span>收藏</button>
-                            <button class="bnt btn-default" name="buy" style="color: rgb(233, 152, 47)">
-                                <span class="glyphicon glyphicon-collapse-down"></span>购买</button>
-                            <button class="bnt btn-default" name="discuss" style="color: rgb(85, 85, 220)">
-                                <span class="glyphicon glyphicon-pencil"></span>评论</button>
-                            </div>
+                    <div class="col" id="posts">
+
                     </div>
                 </div>
             </div>
         </div>
+        <button class="bulk-delete-btn" value="delete" name="delete" style="color: rgb(238, 188, 188)">
+            <i class="fa-solid fa-trash"></i> 批量删除</button>
     </div>
     <div class="container navbar-fixed-bottom">
         <ul class="pagination">
@@ -84,6 +57,7 @@
     </div>
 
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/index.js?ver=2"></script>
 </body>
+
 </html>

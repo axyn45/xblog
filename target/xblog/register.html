@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>注册</title>
 	<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha256@master/src/sha256.js"></script>
   <style>
     body {
       background-color: #f5f5f5;
@@ -44,29 +46,34 @@
 	<div id="register-form">
 		<h2>用户注册</h2>
 		<div class="form-group has-feedback">
-			<label for="student-id">学号：</label>
-			<input type="text" name="student-id" id="student-id" required class="form-control">
+			<label for="uname">用户名</label>
+			<input type="text" name="uname" id="uname" required class="form-control">
 			<span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
-			<span id="tip1" class="help-block hide">学号不规范</span>
+			<span id="tip1" class="help-block hide">用户名长度不得少于4位且只能包含字母和数字</span>
 		</div>
 		<div class="form-group has-feedback">
-			<label for="password">密码：</label>
+			<label for="password">密码</label>
 			<input type="password" name="password" id="password" required class="form-control">
 			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-			<span id="tip2" class="help-block hide">应包含数字和字母，长度在6至16位之间</span>
+			<span id="tip2" class="help-block hide">应包含数字和字母，长度在8至20位之间</span>
 		</div>
 		<div class="form-group has-feedback">
-			<label for="nickname">昵称：</label>
-			<input type="text" name="nickname" id="nickname" required class="form-control">
-			<span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
-		</div>
-		<div class="form-group has-feedback">
-			<label for="student-id">邮箱：</label>
+			<label for="email">邮箱</label>
 			<input type="text" name="email" id="email" required class="form-control">
-			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			<span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
 			<span id="tip3" class="help-block hide">邮箱格式不正确</span>
 		</div>
-		<div class="form-group">
+		<div class="form-group has-feedback">
+			<label for="fname">名字</label>
+			<input type="text" name="fname" id="fname" required class="form-control">
+			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+		</div>
+		<div class="form-group has-feedback">
+			<label for="sname">姓氏</label>
+			<input type="text" name="sname" id="sname" required class="form-control">
+			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+		</div>
+		<!-- <div class="form-group">
 		  <label for="major" control-label>专业：</label>
 		  <div>
 			<select name="major" id="major" class="form-control">
@@ -76,7 +83,7 @@
 			  <option value="计科">计科</option>
 			</select>
 		  </div>
-		</div>
+		</div> -->
 		<div>
 			<button id="register" type="submit" class="btn btn-primary">注册</button>
 			<a style="float: right;" href="./login.html">去登录</a>

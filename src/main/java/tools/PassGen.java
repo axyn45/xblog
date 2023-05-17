@@ -7,6 +7,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 public class PassGen {
+    private static Random rand=new Random();
+    public static String getRandSHA256(){
+        return getSHA256(Integer.toString(rand.nextInt(999999999))+Integer.toString(rand.nextInt(999999999)));
+    }
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException
     {
         // Static getInstance method is called with hashing SHA
@@ -18,7 +22,7 @@ public class PassGen {
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
     public static String addSalt(){
-        Random rand=new Random();
+        // Random rand=new Random();
         return Integer.toString(rand.nextInt(99999999));
     }
     public static String toHexString(byte[] hash)

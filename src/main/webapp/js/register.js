@@ -1,11 +1,11 @@
 // 学号验证函数
-function isValidStudentId(studentId) {
-return /^\d{10}$/.test(studentId);
+function isValidUname(uname) {
+return /^([A-z,0-9]){4,10}$/.test(uname);
 }
 
 // 密码验证函数
 function isValidPassword(password) {
-return /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{6,16}$/.test(password);
+return /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,20}$/.test(password);
 }
 
 // 邮箱验证函数
@@ -15,32 +15,25 @@ return /\S+@\S+\.\S+/.test(email);
 
 $(document).ready(function(){
     $("#register").click(function(event){
-        var studentId = $("#student-id").val();
+        var uname = $("#uname").val();
         var password = $("#password").val();
-        var nickname = $("#nickname").val();
+        var fname = $("#fname").val();
         var email = $("#email").val();
-        var major = $("#major").val();
+        var sname = $("#sname").val();
 
-        if (!isValidStudentId(studentId)) {
+        if (!isValidUname(uname)) {
             event.preventDefault(); // 阻止表单提交
-            $("#student-id").closest(".form-group").addClass("has-error");
+            $("#uname").closest(".form-group").addClass("has-error");
             $("#tip1").removeClass("hide");
         } else if (!isValidPassword(password)) {
             event.preventDefault();
             $("#password").closest(".form-group").addClass("has-error");
             $("#tip2").removeClass("hide");
-        } else if (nickname.trim() === "") {
-            $("#nickname").closest(".form-group").addClass("has-error");
-            event.preventDefault();
         } else if (!isValidEmail(email)) {
             event.preventDefault();
             $("#email").closest(".form-group").addClass("has-error");
             $("#tip3").removeClass("hide");
-        } else if (major === "") {
-            alert("请选择专业！");
-            event.preventDefault();
         }
-
         $("input").focus(function() {
             $(this).closest(".form-group").removeClass("has-error");
             $(this).siblings(".help-block").addClass("hide");
@@ -50,23 +43,24 @@ $(document).ready(function(){
             type:"get",
             url:"register.do",
             data:{
-                "userid":$("#student-id").val(),
-                "password":$("#password").val(),
-                "nickname":$("#nickname").val(),
+                "uname":$("#uname").val(),
+                "pass":sha256($("#password").val()),
                 "email":$("#email").val(),
-                "major":$("#major").val()
+                "fname":$("#fname").val(),
+                "sname":$("#sname").val()
             },
             dataType:"json",
             success:function(data){
-                if(data === "success"){
+                if(data.code==0){
                     alert("注册成功！");
+                    window.location = "./login.html";
+                }
+                else{
+                    alert(data.info+"("+data.code+")");
                 }
             },
-            error: function(xhr) {
-                if (xhr.responseText === "success"){
-                    alert("注册成功！");
-                }
-                console.log("Error: " + xhr.responseText);
+            error: function(data) {
+                console.log("Error: " + data.responseText);
             }
         });
     });

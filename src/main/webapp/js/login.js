@@ -46,6 +46,7 @@ function isValidPassword(password) {
 // }
 
 $(document).ready(function(){
+    var ct=1;
     $("#login").click(function(){
         $.ajax({
             type:"get",
@@ -53,6 +54,7 @@ $(document).ready(function(){
             data:{
                 "id":$("#uid").val(),
                 "pass":sha256($("#password").val()),
+                "captcha":$("#captcha").val(),
                 "remember-me":$("#remember-me").is(":checked")
             },
             dataType:"text",
@@ -62,6 +64,7 @@ $(document).ready(function(){
                     location.href="/xblog/index.html";
                 } else { // 登录失败
                     alert(response);
+                    $("[alt=captcha]").attr("src",$("[alt=captcha]").attr("src")+"?ct="+ct++);
                 }
             },
             error: function(xhr) {
@@ -69,6 +72,9 @@ $(document).ready(function(){
             }
         });
     });
+    $("[alt=captcha]").click(function(){
+        $("[alt=captcha]").attr("src",$("[alt=captcha]").attr("src")+"?ct="+ct++);
+    })
 })
 // $(document).ready(function(){
 //     $.ajax({

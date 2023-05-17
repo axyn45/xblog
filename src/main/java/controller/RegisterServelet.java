@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import tools.JDBC;
+import tools.MailSender;
+import tools.PassGen;
 
 /**
  * Servlet implementation class RegisterServelet
@@ -34,6 +39,7 @@ public class RegisterServelet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		PrintWriter out = response.getWriter();
 		String uname = request.getParameter("uname");
 		String pass = request.getParameter("pass");
 		String email = request.getParameter("email");
@@ -43,26 +49,65 @@ public class RegisterServelet extends HttpServlet {
 
 		System.out.println(uname+","+pass+","+email+","+fname+","+sname);
 		try {
+			String sql = "select * from xb_users where uname=?";
+			PreparedStatement statement=JDBC.getStatement(sql);
+			statement.setString(1, uname);
+			ResultSet rs=JDBC.getResultSet(statement);
+			if(rs.next()){
+				HashMap map = new HashMap<>();
+				map.put("code", 1);
+				map.put("info", "Username existed!");
+				out.print(new Gson().toJson(map));
+				out.flush();
+				out.close();
+				return;
+			}
+			sql="select * from xb_users where email=?";
+			statement=JDBC.getStatement(sql);
+			statement.setString(1, email);
+			rs=JDBC.getResultSet(statement);
+			if(rs.next()){
+				HashMap map = new HashMap<>();
+				map.put("code", 2);
+				map.put("info", "Email existed!");
+				out.print(new Gson().toJson(map));
+				out.flush();
+				out.close();
+				return;
+			}
+
 			// 创建 SQL 查询语句
-		    String sql = "INSERT INTO xb_users (uname, pass, email, first_name, second_name,role,status) VALUES (?, ?, ?, ?, ?,?,?)";
-		    PreparedStatement statement = JDBC.getStatement(sql);
+		    sql = "INSERT INTO xb_users (uname, pass, email, first_name, second_name,role,status,activation) VALUES (?, ?, ?, ?, ?,?,?,?)";
+		    statement = JDBC.getStatement(sql);
 		    statement.setString(1, uname);
 		    statement.setString(2, pass);
 		    statement.setString(3, email);
 		    statement.setString(4, fname);
 			statement.setString(5, sname);
 			statement.setString(6, "user");
-		    statement.setInt(7, 1);
+		    statement.setInt(7, 0);
+			String activateKey=PassGen.getRandSHA256();
+			statement.setString(8,activateKey);
 
 		    // 执行 SQL 查询
 		    int rowsAffected = statement.executeUpdate();
 		    System.out.println(rowsAffected + " record(s) inserted.");
 		    response.setContentType("text/html;charset=utf-8");
-			PrintWriter out = response.getWriter();
 		    if (rowsAffected == 1) {
-		    	out.print("success");
+				MailSender ms=new MailSender();
+				ms.setAddrList(email);
+				ms.setSubject("激活你的xBlog账号");
+				ms.setContent("点击<a href=\"http://10.0.0.90:8080/xblog/activate?key="+activateKey+"\">激活</a>");
+				ms.sendMail();
+		    	HashMap map = new HashMap<>();
+				map.put("code", 0);
+				map.put("info", "注册成功！已向你的邮箱发送了一封激活邮件，请前往邮箱查看并激活你的账号");
+				out.print(new Gson().toJson(map));
 		    } else {
-		    	out.print("学号或密码错误！");
+		    	HashMap map = new HashMap<>();
+				map.put("code", 3);
+				map.put("info", "Unknown error");
+				out.print(new Gson().toJson(map));
 		    }
 			out.flush();
 			out.close();

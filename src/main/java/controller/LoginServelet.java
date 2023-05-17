@@ -41,6 +41,7 @@ public class LoginServelet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String id = request.getParameter("id");
 		String pass = request.getParameter("pass");
+		String captcha = request.getParameter("captcha");
 		String autoLogin = request.getParameter("remember-me");
 		System.out.println(id+","+pass+","+autoLogin);
 
@@ -54,21 +55,50 @@ public class LoginServelet extends HttpServlet {
 		System.out.println("Session id: "+session.getId());
 		try {
 		    // 创建 SQL 查询语句
-		    String sql = "SELECT * FROM xb_users WHERE id = ? or uname=? or email=? AND pass = ?";
+
+			String sql = "SELECT * FROM xb_captchas WHERE session = ?";
+			PreparedStatement statement = JDBC.getStatement(sql);
+			statement.setString(1, session.getId());
+			ResultSet resultSet = JDBC.getResultSet(statement);
+			System.out.println("Remote captcha: "+captcha.toLowerCase());
+			while(resultSet.next()){
+				System.out.println("Backend captcha: "+resultSet.getString(2).toLowerCase());
+				if(!resultSet.getString(2).toLowerCase().equals(captcha.toLowerCase())){
+				out.print("验证码错误！");
+				out.flush();
+				out.close();
+				return;
+			}
+			}
+
+
+		    sql = "SELECT * FROM xb_users WHERE id = ? or uname=? or email=? AND pass = ?";
 
 		    // 预编译 SQL 语句并设置参数值
-		    PreparedStatement statement = JDBC.getStatement(sql);
+		    statement = JDBC.getStatement(sql);
 		    statement.setString(1, id);
 			statement.setString(2, id);
 			statement.setString(3, id);
 		    statement.setString(4, pass);
 
 		    // 执行 SQL 查询
-		    ResultSet resultSet = JDBC.getResultSet(statement);
+		    resultSet = JDBC.getResultSet(statement);
 
 		    // 若查询结果集不为空，则表明该用户存在
 			// System.out.println("result: "+resultSet.next());
 		    if (resultSet.next()) {
+				if(!resultSet.getString(3).equals(pass)){
+					out.print("用户名/邮箱或密码错误！");
+					out.flush();
+					out.close();
+					return;
+				}
+				if(resultSet.getInt(8)==0){
+					out.print("账号未激活！请前往你的邮箱进行激活");
+					out.flush();
+					out.close();
+					return;
+				}
 				int uid=resultSet.getInt(1);
 		    	rep = "success";
 		    	success = true;
