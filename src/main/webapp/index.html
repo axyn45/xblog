@@ -8,7 +8,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha256@master/src/sha256.js"></script>
-    <script src="./js/index.js?ver=4"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="./js/index.js?ver=8"></script>
     <link href="./css/index.css" rel="stylesheet">
     <title>SHOP</title>
 
@@ -37,13 +39,76 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col" id="posts">
+                        <!-- <div pid="{pid}" class="post" style="padding-bottom: 3%;">
+                            <div class="checkbox" style="display: inline-block;height: 100px;width: 10%;">
+                                <input type="checkbox" id="multi" name="multi" style="left:65%">
+                            </div>
+                            <div class="content" style="display: inline-block;height: 100px;width:85%">
+                                <h3>{title}</h3>
+                                <p><i class="fa-solid fa-book"></i> {content}</p>
+                                <p><i class="fa-solid fa-user"></i> {author} | <i class="fa-solid fa-calendar-days"></i>
+                                    {date}</p>
+                                <div class="btns" style="text-align: right;">
+                                    <button class="delete-btn" value="{pid}" name="delete"
+                                        style="color: rgb(238, 188, 188)">
+                                        <i class="fa-solid fa-trash"></i> 删除</button>
+                                    <button class="publish-btn" value="{pid}" name="publish" style="color: rgb(233, 152, 47)">
+                                        <i class="fa-solid fa-eye"></i> 发布</button>
+                                    <button class="modify-btn" value="{pid}" name="modify" style="color: rgb(85, 85, 220)">
+                                        <i class="fa-solid fa-pen"></i> 修改</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div pid="{pid}" class="post" style="padding-bottom: 3%;">
+                            <div class="checkbox" style="display: inline-block;height: 100px;width: 10%;">
+                                <input type="checkbox" id="multi" name="multi" style="left:65%">
+                            </div>
+                            <div class="content" style="display: inline-block;height: 100px;width:85%">
+                                <h3>{title}</h3>
+                                <p><i class="fa-solid fa-book"></i> {content}</p>
+                                <p><i class="fa-solid fa-user"></i> {author} | <i class="fa-solid fa-calendar-days"></i>
+                                    {date}</p>
+                                <div class="btns" style="text-align: right;">
+                                    <button class="delete-btn" value="{pid}" name="delete"
+                                        style="color: rgb(238, 188, 188)">
+                                        <i class="fa-solid fa-trash"></i> 删除</button>
+                                    <button class="publish-btn" value="{pid}" name="publish" style="color: rgb(233, 152, 47)">
+                                        <i class="fa-solid fa-eye"></i> 发布</button>
+                                    <button class="modify-btn" value="{pid}" name="modify" style="color: rgb(85, 85, 220)">
+                                        <i class="fa-solid fa-pen"></i> 修改</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div pid="{pid}" class="post" style="padding-bottom: 3%;">
+                            <div class="checkbox" style="display: inline-block;height: 100px;width: 10%;">
+                                <input type="checkbox" id="multi" name="multi" style="left:65%">
+                            </div>
+                            <div class="content" style="display: inline-block;height: 100px;width:85%">
+                                <h3>{title}</h3>
+                                <p><i class="fa-solid fa-book"></i> {content}</p>
+                                <p><i class="fa-solid fa-user"></i> {author} | <i class="fa-solid fa-calendar-days"></i>
+                                    {date}</p>
+                                <div class="btns" style="text-align: right;">
+                                    <button class="delete-btn" value="{pid}" name="delete"
+                                        style="color: rgb(238, 188, 188)">
+                                        <i class="fa-solid fa-trash"></i> 删除</button>
+                                    <button status="{status}" class="publish-btn" value="{pid}" name="publish" style="color: rgb(233, 152, 47)">
+                                        <i class="fa-solid fa-eye"></i> 发布</button>
+                                    <button class="modify-btn" value="{pid}" name="modify" style="color: rgb(85, 85, 220)">
+                                        <i class="fa-solid fa-pen"></i> 修改</button>
+                                </div>
+                            </div>
+                        </div> -->
 
                     </div>
                 </div>
             </div>
         </div>
-        <button class="bulk-delete-btn" value="delete" name="delete" style="color: rgb(238, 188, 188)">
-            <i class="fa-solid fa-trash"></i> 批量删除</button>
+        <div style="height: 100px;width:85%">
+            <input type="checkbox" id="selectall" name="selectall" style="width: 10%;">
+            <button class="bulk-delete-btn" value="delete" name="delete" style="color: rgb(238, 188, 188)">
+                <i class="fa-solid fa-trash"></i> 批量删除</button>
+        </div>
     </div>
     <div class="container navbar-fixed-bottom">
         <ul class="pagination">
@@ -56,8 +121,55 @@
         </ul>
     </div>
 
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-    <script src="./js/index.js?ver=2"></script>
+    <div id="dialog-confirm" title="删除文章" style="display: none;">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>删除后文章将不可恢复</p>
+    </div>
+
+    <div class="edit-panel"
+        style="display: none;border-radius: 20px; height: 200px;width: 400px;background: rgba(0, 0, 0, 0.25);padding: 5%;padding-bottom: 40%;position: fixed;top: 50%;left: 50%;margin-top: -120px;margin-left: -200px;">
+        <div id="register-form">
+            <h2>文章编辑</h2>
+            <div class="form-group has-feedback">
+                <label for="title">标题</label>
+                <textarea id="edit-title" name="title" cols="38" rows="1"></textarea>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="content">内容</label><br>
+                <textarea id="edit-content" name="content" cols="38" rows="6"></textarea>
+            </div>
+            <div class="form-group has-feedback" style="left:85%">
+                <input type="checkbox" id="publish" name="publish" style="left:65%">
+                <label for="publish">发布</label>
+            </div>
+            <div class="form-group has-feedback" style="left:65%">
+                <button class="close-btn" pid="0" name="delete" style="color: rgb(238, 164, 164)">
+                    <i class="fa-solid fa-xmark"></i> 关闭</button>
+                <button class="save-btn" pid="0" name="delete" style="color: rgb(67, 200, 144)">
+                    <i class="fa-solid fa-floppy-disk"></i> 保存</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
+
+<!-- 
+<div pid="{pid}" class="post" style="padding-bottom: 3%;">
+    <div class="checkbox" style="display: inline-block;height: 100px;width: 10%;">
+        <input type="checkbox" id="multi" name="multi" style="left:65%">
+    </div>
+    <div class="content" style="display: inline-block;height: 100px;width:85%">
+        <h3>{title}</h3>
+        <p><i class="fa-solid fa-book"></i> {content}</p>
+        <p><i class="fa-solid fa-user"></i> {author} | <i class="fa-solid fa-calendar-days"></i>
+            {date}</p>
+        <div class="btns" style="text-align: right;">
+            <button class="delete-btn" value="{pid}" name="delete" style="color: rgb(238, 188, 188)">
+                <i class="fa-solid fa-trash"></i> 删除</button>
+            <button class="publish-btn" value="{pid}" name="publish" style="color: rgb(233, 152, 47)">
+                <i class="fa-solid fa-eye"></i> 发布</button>
+            <button class="edit-btn" value="{pid}" name="edit" style="color: rgb(85, 85, 220)">
+                <i class="fa-solid fa-pen"></i> 修改</button>
+        </div>
+    </div>
+</div> -->

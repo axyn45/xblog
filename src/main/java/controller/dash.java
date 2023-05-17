@@ -122,7 +122,7 @@ public class dash extends HttpServlet {
 		if (rq.equals("get_posts")) {
 			try {
 
-				sql = "select * from xb_posts where author=? and status=1";
+				sql = "select * from xb_posts where author=?";
 				st = JDBC.getStatement(sql);
 				st.setInt(1, uid);
 				rs = JDBC.getResultSet(st);
@@ -136,6 +136,7 @@ public class dash extends HttpServlet {
 					post.put("author", uname);
 					post.put("title", rs.getString(3));
 					post.put("content", rs.getString(4));
+					post.put("status", rs.getInt(6));
 					post.put("date", rs.getTimestamp(5).toString());
 					posts.put(rs.getInt(1), post);
 				}
@@ -207,18 +208,18 @@ public class dash extends HttpServlet {
 			String content = request.getParameter("content");
 			System.out.println(uname+",title: "+title);
 			int status = Integer.parseInt(request.getParameter("publish"));
-			sql = "insert into xb_posts (author, title,content,date,status) values(?,?,?,?,?)";
+			int pid = Integer.parseInt(request.getParameter("pid"));
+			sql = "update xb_posts set title=? content=? status=? where id=?";
 			st = JDBC.getStatement(sql);
 			try {
-				st.setInt(1, uid);
-				st.setString(2, title);
-				st.setString(3, content);
-				st.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
-				st.setInt(5, status);
+				st.setString(1, title);
+				st.setString(2, content);
+				st.setInt(3, status);
+				st.setInt(4, pid);
 				System.out.println("Add post query: "+JDBC.executeQuery(st));
 				HashMap map = new HashMap<>();
 				map.put("code", "0");
-				map.put("info","post added");
+				map.put("info","Post updated");
 				out.print(new Gson().toJson(map));
 				out.flush();
 				out.close();
@@ -226,7 +227,39 @@ public class dash extends HttpServlet {
 				System.out.println(e);
 				HashMap map = new HashMap<>();
 				map.put("code", "-1");
-				map.put("info","post add failed");
+				map.put("info","post update failed");
+				out.print(new Gson().toJson(map));
+				out.flush();
+				out.close();
+			}
+		}else if (rq.equals("set_status")) {
+			int pid = Integer.parseInt(request.getParameter("pid"));
+			int goal = Integer.parseInt(request.getParameter("goal"));
+			if(goal!=1&&goal!=0){
+				HashMap map = new HashMap<>();
+				map.put("code", "1");
+				map.put("info","Invalid status");
+				out.print(new Gson().toJson(map));
+				out.flush();
+				out.close();
+			}
+			sql = "update xb_posts set status=? where id=?";
+			st = JDBC.getStatement(sql);
+			try {
+				st.setInt(1, goal);
+				st.setInt(2, pid);
+				System.out.println("Update status query: "+JDBC.executeQuery(st));
+				HashMap map = new HashMap<>();
+				map.put("code", "0");
+				map.put("info","Updated post "+pid+" to "+(goal==1?"PUBLISHED":"DRAFT"));
+				out.print(new Gson().toJson(map));
+				out.flush();
+				out.close();
+			} catch (Exception e) {
+				System.out.println(e);
+				HashMap map = new HashMap<>();
+				map.put("code", "-1");
+				map.put("info","Publish status update failed");
 				out.print(new Gson().toJson(map));
 				out.flush();
 				out.close();
