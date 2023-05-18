@@ -15,17 +15,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.vo.User;
 import tools.JDBC;
 
 public class PermissionFilter implements Filter {
-
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
 
 	}
-
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -68,7 +65,6 @@ public class PermissionFilter implements Filter {
 				}
 			}
 		}
-
 		System.out.println(check);
 		if (!check) {
 			resp.sendRedirect("login.html");
@@ -77,11 +73,8 @@ public class PermissionFilter implements Filter {
 			chain.doFilter(request, response);
 		}
 	}
-
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		// TODO Auto-generated method stub
-
 	}
-
 }

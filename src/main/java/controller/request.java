@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import tools.JDBC;
 import com.google.gson.Gson;
 import tools.PassGen;
-import model.vo.User;
+// import model.vo.User;
 
 /**
  * Servlet implementation class LoginSevelet

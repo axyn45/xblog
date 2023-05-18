@@ -1,9 +1,8 @@
 /home/op/dev/xblog/src/main/java/tools/JDBC.java
-/home/op/dev/xblog/src/main/java/model/vo/User.java
-/home/op/dev/xblog/src/main/java/model/dao/MultiThreadServerDAO.java
 /home/op/dev/xblog/src/main/java/controller/login.java
 /home/op/dev/xblog/src/main/java/tools/PassGen.java
 /home/op/dev/xblog/src/main/java/tools/MailSender.java
+/home/op/dev/xblog/src/main/java/controller/StartupListener.java
 /home/op/dev/xblog/src/main/java/controller/activate.java
 /home/op/dev/xblog/src/main/java/controller/request.java
 /home/op/dev/xblog/src/main/java/controller/captcha.java
