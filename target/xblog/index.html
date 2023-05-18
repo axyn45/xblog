@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha256@master/src/sha256.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <script src="./js/index.js?ver=8"></script>
+    <script src="./js/index.js"></script>
     <link href="./css/index.css" rel="stylesheet">
     <title>SHOP</title>
 
@@ -20,21 +20,18 @@
 <body>
     <div class="container-full">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#">本专业相关</a></li>
-            <li><a href="core_curriculum.html">通识课课本</a></li>
-            <li><a href="#">考研书籍及资料</a></li>
-            <li><a href="#">课外书</a></li>
-            <li><a href="#">...</a></li>
-            <p id="current-time" style="float:right;margin: 10px;font-size: 14px;">jhg</p>
+            <li class="active"><a href="#">主页</a></li>
+            <li><a href="dash.html">管理页面</a></li>
+            <p id="current-time" style="float:right;margin: 10px;font-size: 14px;"><div id="clock"></div></p>
         </ul>
     </div>
     <div id="welcome-message">
-        <h1 class="text-center" style="color: rgb(243, 161, 117);">xBlog文章管理页面</h1>
+        <h1 class="text-center" style="color: rgb(243, 161, 117);">欢迎来到xBlog</h1>
     </div>
     <div class="container">
         <div class="panel panel-warning">
             <div class="penel-heading">
-                <h2 align="center" style="background-color: rgb(68, 179, 182);">文章</h2>
+                <h2 align="center" style="background-color: rgb(68, 179, 182);">所有文章</h2>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -104,13 +101,16 @@
                 </div>
             </div>
         </div>
-        <div style="height: 100px;width:85%">
+        <input type="text" placeholder="Search..." id="searchBox">
+        <!-- <div style="height: 100px;width:85%">
             <input type="checkbox" id="selectall" name="selectall" style="width: 10%;">
             <button class="bulk-delete-btn" value="delete" name="delete" style="color: rgb(238, 188, 188)">
                 <i class="fa-solid fa-trash"></i> 批量删除</button>
-        </div>
+            <button class="newpost-btn" value="newpost" name="newpost" style="color: rgb(83, 143, 228)">
+                <i class="fa-solid fa-pen"></i> 新建文章</button>
+        </div> -->
     </div>
-    <div class="container navbar-fixed-bottom">
+    <!-- <div class="container navbar-fixed-bottom">
         <ul class="pagination">
             <li><a href="#">&laquo;</a></li>
             <li class="active"><a href="#">1</a></li>
@@ -119,13 +119,13 @@
             <li><a href="#">4</a></li>
             <li><a href="#">&raquo;</a></li>
         </ul>
-    </div>
+    </div> -->
 
-    <div id="dialog-confirm" title="删除文章" style="display: none;">
+    <!-- <div id="dialog-confirm" title="删除文章" style="display: none;">
         <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>删除后文章将不可恢复</p>
     </div>
 
-    <div class="edit-panel"
+    <div class="edit-panel" action="edit"
         style="display: none;border-radius: 20px; height: 200px;width: 400px;background: rgba(0, 0, 0, 0.25);padding: 5%;padding-bottom: 40%;position: fixed;top: 50%;left: 50%;margin-top: -120px;margin-left: -200px;">
         <div id="register-form">
             <h2>文章编辑</h2>
@@ -148,28 +148,8 @@
                     <i class="fa-solid fa-floppy-disk"></i> 保存</button>
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
 
 </html>
 
-<!-- 
-<div pid="{pid}" class="post" style="padding-bottom: 3%;">
-    <div class="checkbox" style="display: inline-block;height: 100px;width: 10%;">
-        <input type="checkbox" id="multi" name="multi" style="left:65%">
-    </div>
-    <div class="content" style="display: inline-block;height: 100px;width:85%">
-        <h3>{title}</h3>
-        <p><i class="fa-solid fa-book"></i> {content}</p>
-        <p><i class="fa-solid fa-user"></i> {author} | <i class="fa-solid fa-calendar-days"></i>
-            {date}</p>
-        <div class="btns" style="text-align: right;">
-            <button class="delete-btn" value="{pid}" name="delete" style="color: rgb(238, 188, 188)">
-                <i class="fa-solid fa-trash"></i> 删除</button>
-            <button class="publish-btn" value="{pid}" name="publish" style="color: rgb(233, 152, 47)">
-                <i class="fa-solid fa-eye"></i> 发布</button>
-            <button class="edit-btn" value="{pid}" name="edit" style="color: rgb(85, 85, 220)">
-                <i class="fa-solid fa-pen"></i> 修改</button>
-        </div>
-    </div>
-</div> -->

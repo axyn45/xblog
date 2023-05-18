@@ -38,7 +38,7 @@ public class PermissionFilter implements Filter {
 		System.out.println("拦截到资源：" + uri);
 		// 某些资源无需检查
 		String[] notCheckList = { "login.do", "login.html", "register.do", "register.html", "about.html",
-				"get_captcha", "dash.do","log.do","request"};
+				"get_captcha", "dash.do","log.do","request","index.html"};
 		for (String str : notCheckList) {
 			if (uri.contains(str)) { // 直接放行
 				chain.doFilter(request, response);

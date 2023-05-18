@@ -24,13 +24,13 @@ import model.vo.User;
  * Servlet implementation class LoginSevelet
  */
 @WebServlet("/request")
-public class dash extends HttpServlet {
+public class request extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public dash() {
+	public request() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -120,11 +120,12 @@ public class dash extends HttpServlet {
 			System.out.println(e);
 		}
 		if (rq.equals("get_posts")) {
+			String type = request.getParameter("type");
 			try {
 
-				sql = "select * from xb_posts where author=?";
+				sql = type.equals("own")?"select xb_posts.*,xb_users.uname from xb_posts,xb_users where xb_users.id=xb_posts.author and xb_posts.author=?":"select xb_posts.*,xb_users.uname from xb_posts,xb_users where xb_users.id=xb_posts.author and xb_posts.status=1";
 				st = JDBC.getStatement(sql);
-				st.setInt(1, uid);
+				if(type.equals("own")) st.setInt(1, uid);
 				rs = JDBC.getResultSet(st);
 				HashMap map = new HashMap<>();
 				HashMap posts = new HashMap<>();
@@ -133,7 +134,7 @@ public class dash extends HttpServlet {
 
 				while (rs.next()) {
 					HashMap post = new HashMap<>();
-					post.put("author", uname);
+					post.put("author", rs.getString(7));
 					post.put("title", rs.getString(3));
 					post.put("content", rs.getString(4));
 					post.put("status", rs.getInt(6));
@@ -207,9 +208,10 @@ public class dash extends HttpServlet {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			System.out.println(uname+",title: "+title);
+			System.out.println(request.getParameter("publish")+", "+request.getParameter("pid")+", "+request.getParameter("content"));
 			int status = Integer.parseInt(request.getParameter("publish"));
 			int pid = Integer.parseInt(request.getParameter("pid"));
-			sql = "update xb_posts set title=? content=? status=? where id=?";
+			sql = "update xb_posts set title=?,content=?,status=? where id=? ORDER BY date desc";
 			st = JDBC.getStatement(sql);
 			try {
 				st.setString(1, title);

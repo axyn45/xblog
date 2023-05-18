@@ -25,12 +25,12 @@ import tools.PassGen;
  * Servlet implementation class RegisterServelet
  */
 @WebServlet("/register.do")
-public class RegisterServelet extends HttpServlet {
+public class register extends HttpServlet {
 	private static final long serialVersionUID = 1L; 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterServelet() {
+    public register() {
         super();
         // TODO Auto-generated constructor stub
     }

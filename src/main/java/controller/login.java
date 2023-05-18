@@ -24,13 +24,13 @@ import model.vo.User;
  * Servlet implementation class LoginSevelet
  */
 @WebServlet("/login.do")
-public class LoginServelet extends HttpServlet {
+public class login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServelet() {
+    public login() {
         super();
         // TODO Auto-generated constructor stub
     }

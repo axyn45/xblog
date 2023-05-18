@@ -2,3 +2,6 @@
 .post:hover{
     background: azure;
 }
+body{
+    background: rgba(27, 233, 164, 0.296)!important;
+}
