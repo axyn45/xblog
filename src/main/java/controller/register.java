@@ -97,7 +97,7 @@ public class register extends HttpServlet {
 				MailSender ms=new MailSender();
 				ms.setAddrList(email);
 				ms.setSubject("激活你的xBlog账号");
-				ms.setContent("点击<a href=\"http://10.0.0.90:8080/xblog/activate?key="+activateKey+"\">激活</a>");
+				ms.setContent("点击<a href=\"https://dev.okkk.cc/xblog/activate?key="+activateKey+"\">激活</a>");
 				ms.sendMail();
 		    	HashMap map = new HashMap<>();
 				map.put("code", 0);

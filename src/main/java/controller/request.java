@@ -130,6 +130,7 @@ public class request extends HttpServlet {
 				HashMap map = new HashMap<>();
 				HashMap posts = new HashMap<>();
 				map.put("code", "0");
+				map.put("uid", uid);
 				// map.put("posts", "Validated.");
 
 				while (rs.next()) {

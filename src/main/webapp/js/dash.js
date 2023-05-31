@@ -33,6 +33,7 @@ $(document).ready(function () {
 function getPosts() {
 
     // alert("remove posts");
+    // var uid;
     $.ajax({
         type: "get",
         url: "./request",
@@ -46,6 +47,7 @@ function getPosts() {
             response = JSON.parse(response);
             console.log(response);
             if (response.code == "0") { // 登录成功
+                // uid=response.uid;
                 posts = response.posts;
                 console.log(posts);
                 $(".post").remove();
@@ -71,6 +73,30 @@ function getPosts() {
             console.log("Error: " + xhr.responseText);
         }
     });
+    // console.log("UUIIDD: "+uid);
+    $.ajax({
+        type: "get",
+        url: "./log",
+        data: {
+            "action": "get_posts",
+            "time":Date.now()
+        },
+        dataType: "text",
+        success: function (response) {
+            response = JSON.parse(response);
+            console.log(response);
+            if (response.code == "0") {
+                console.log("Log successfully done");
+            } else {
+                alert("Log failed: " + response);
+            }
+
+        },
+        error: function (xhr) {
+            console.log("Error: " + xhr.responseText);
+        }
+    });
+
 }
 
 function initButtons() {
@@ -103,6 +129,28 @@ function initButtons() {
                             } else { // 登录失败
                                 alert("Delete failed: " + response);
                             }
+                        },
+                        error: function (xhr) {
+                            console.log("Error: " + xhr.responseText);
+                        }
+                    });
+                    $.ajax({
+                        type: "get",
+                        url: "./log",
+                        data: {
+                            "action": "delete_post",
+                            "time":Date.now()
+                        },
+                        dataType: "text",
+                        success: function (response) {
+                            response = JSON.parse(response);
+                            console.log(response);
+                            if (response.code == "0") {
+                                console.log("Log successfully done");
+                            } else {
+                                alert("Log failed: " + response);
+                            }
+                
                         },
                         error: function (xhr) {
                             console.log("Error: " + xhr.responseText);
@@ -166,6 +214,28 @@ function initButtons() {
                 console.log("Error: " + xhr.responseText);
             }
 
+        });
+        $.ajax({
+            type: "get",
+            url: "./log",
+            data: {
+                "action": target==1?"publish_post":"unpublish_post",
+                "time":Date.now()
+            },
+            dataType: "text",
+            success: function (response) {
+                response = JSON.parse(response);
+                console.log(response);
+                if (response.code == "0") {
+                    console.log("Log successfully done");
+                } else {
+                    alert("Log failed: " + response);
+                }
+    
+            },
+            error: function (xhr) {
+                console.log("Error: " + xhr.responseText);
+            }
         });
     });
 
@@ -284,6 +354,28 @@ function initButtons() {
                             });
                             getPosts();
                         })
+                        $.ajax({
+                            type: "get",
+                            url: "./log",
+                            data: {
+                                "action": "bulk_delete",
+                                "time":Date.now()
+                            },
+                            dataType: "text",
+                            success: function (response) {
+                                response = JSON.parse(response);
+                                console.log(response);
+                                if (response.code == "0") {
+                                    console.log("Log successfully done");
+                                } else {
+                                    alert("Log failed: " + response);
+                                }
+                    
+                            },
+                            error: function (xhr) {
+                                console.log("Error: " + xhr.responseText);
+                            }
+                        });
                         $(this).dialog("close");
                     },
                     Cancel: function () {
@@ -339,6 +431,28 @@ function initSave() {
                 } else { // 登录失败
                     alert("Delete failed: " + response.info);
                 }
+            },
+            error: function (xhr) {
+                console.log("Error: " + xhr.responseText);
+            }
+        });
+        $.ajax({
+            type: "get",
+            url: "./log",
+            data: {
+                "action": "save_post",
+                "time":Date.now()
+            },
+            dataType: "text",
+            success: function (response) {
+                response = JSON.parse(response);
+                console.log(response);
+                if (response.code == "0") {
+                    console.log("Log successfully done");
+                } else {
+                    alert("Log failed: " + response);
+                }
+    
             },
             error: function (xhr) {
                 console.log("Error: " + xhr.responseText);
